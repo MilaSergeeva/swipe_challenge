@@ -132,14 +132,14 @@ function App() {
   });
 
   return (
-    <div className={appStyles.mainSecttion}>
+    <div className={appStyles.mainSection}>
       <a href="https://try.no/">
         <img className={appStyles.logo} src={logo} alt="logo" />
       </a>
       <div
-        className={`${appStyles.btnConatainierLeft} ${
-          isOverOnDislike && appStyles.btnConatainierLeftOnDrop
-        }`}
+        className={`${appStyles.btnConatainier} ${
+          appStyles.btnConatainierLeft
+        } ${isOverOnDislike && appStyles.btnConatainierLeftOnDrop}`}
         ref={dropOnDislikeRef}
       >
         <DislikeBtn onClick={handleDislikeClick} active={active} />
@@ -170,9 +170,9 @@ function App() {
       <ArrowRight onClick={handleCardsToRight} active={active} />
 
       <div
-        className={`${appStyles.btnConatainierRight} ${
-          isOverOnLike && appStyles.btnConatainierRightOnDrop
-        }`}
+        className={`${appStyles.btnConatainier}  ${
+          appStyles.btnConatainierRight
+        } ${isOverOnLike && appStyles.btnConatainierRightOnDrop}`}
         ref={dropOnLikeRef}
       >
         <LikeBtn onClick={handleLikeClick} active={active} />

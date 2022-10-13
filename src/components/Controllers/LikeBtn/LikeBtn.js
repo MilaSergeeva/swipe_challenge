@@ -5,7 +5,9 @@ function LikeBtn({ onClick, active }) {
   return (
     <>
       <button
-        className={`${appStyles.likeBtn} ${!active ? appStyles.disabled : ""}`}
+        className={`${appStyles.choiceBtn} ${appStyles.likeBtn} ${
+          !active ? appStyles.disabled : ""
+        }`}
         style={{ bottom: 0 }}
         onClick={onClick}
         disabled={!active}

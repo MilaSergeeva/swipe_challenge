@@ -5,7 +5,7 @@ function DislikeBtn({ onClick, active }) {
   return (
     <>
       <button
-        className={`${appStyles.dislikeBtn} ${
+        className={`${appStyles.choiceBtn} ${appStyles.dislikeBtn} ${
           !active ? appStyles.disabled : ""
         }`}
         style={{ bottom: 0 }}

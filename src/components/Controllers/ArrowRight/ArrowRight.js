@@ -5,7 +5,9 @@ function ArrowRight({ onClick, active }) {
   return (
     <>
       <button
-        className={`${appStyles.arrowR} ${!active ? appStyles.disabled : ""}`}
+        className={`${appStyles.arrow} ${appStyles.arrowR} ${
+          !active ? appStyles.disabled : ""
+        }`}
         onClick={onClick}
         disabled={!active}
       />

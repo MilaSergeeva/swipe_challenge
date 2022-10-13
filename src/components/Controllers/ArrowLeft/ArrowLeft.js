@@ -5,7 +5,9 @@ function ArrowLeft({ onClick, active }) {
   return (
     <>
       <button
-        className={`${appStyles.arrowL} ${!active ? appStyles.disabled : ""}`}
+        className={`${appStyles.arrow} ${appStyles.arrowL} ${
+          !active ? appStyles.disabled : ""
+        }`}
         onClick={onClick}
         disabled={!active}
       />

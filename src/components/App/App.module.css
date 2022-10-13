@@ -1,4 +1,4 @@
-.mainSecttion{
+.mainSection {
   height: 100vh;
   width: 100vw;
   max-width: 1440px;
@@ -17,7 +17,7 @@
   left: 75px;
 }
 
-.loaderCortainier{
+.loaderCortainier {
   height: 359px;
   width: 245px;
   margin-left: 203px;
@@ -51,10 +51,9 @@
   font-size: 36px;
   color: #fff;
   font-style: normal;
-font-weight: 400;
-line-height: 1.2;
-box-sizing: border-box;
-
+  font-weight: 400;
+  line-height: 1.2;
+  box-sizing: border-box;
 }
 
 .slideRight {
@@ -79,66 +78,62 @@ box-sizing: border-box;
   }
 }
 
-.arrowL{
+.arrowL {
   background: url(../../images/arrow-left.svg);
   padding: 3px;
-  width: 30px;
-  height: 20px;
-  background-repeat: no-repeat;
-  background-position: center;
   margin-left: 97px;
 }
 
-.arrowR{
+.arrowR {
   background: url(../../images/arrow-right.svg);
+  margin-right: 96.5px;
+}
+
+.arrow {
   width: 30px;
   height: 20px;
   background-repeat: no-repeat;
   background-position: center;
-  margin-right: 96.5px;
 }
 
-
-.btnConatainierLeft{
-  
+.btnConatainier {
   display: flex;
-    width: 10vw;
-    justify-content: end;
-    align-items: center;
-    height: 100vh;
-}
-.btnConatainierRight{
-  display: flex;
-    width: 10vw;
-    justify-content: start;
-    align-items: center;
-    height: 100vh;
+  flex: 1 0 10vw;
+  align-items: center;
+  height: 100vh;
 }
 
-.btnConatainierRightOnDrop{
+.btnConatainierLeft {
+  justify-content: end;
+}
+
+.btnConatainierRight {
+  justify-content: start;
+}
+
+.btnConatainierRightOnDrop {
   background: rgb(238,238,238);
   background: linear-gradient(94deg, rgba(238,238,238,0) 44%, rgba(11,169,202,1) 83%); 
 }
 
-.btnConatainierLeftOnDrop{
+.btnConatainierLeftOnDrop {
   background: rgb(11,169,202);
   background: linear-gradient(87deg, rgba(11,169,202,1) 16%, rgba(238,238,238,0) 56%);
 }
 
-.dislikeBtn{
-  background: url(../../images/thumb-down.png);
+.choiceBtn {
   width: 24px;
   height: 24px;
   background-repeat: no-repeat;
   background-position: center;
 }
 
-.likeBtn{
+.dislikeBtn {
+  background: url(../../images/thumb-down.png);
+}
+
+.likeBtn {
   background: url(../../images/thumb-up.png);
-  width: 24px;
-  height: 24px;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 
 .arrowR:hover, .arrowL:hover, .dislikeBtn:hover, .likeBtn:hover {
@@ -149,7 +144,6 @@ box-sizing: border-box;
 .disabled {
   opacity: 0.2;
 }
-
 
 @media only screen and (max-width: 1420px) {
   .cardsDeck, .loaderCortainier{
@@ -167,13 +161,9 @@ box-sizing: border-box;
   .BtnConatainierLeft,.BtnConatainierRight{
     width: 7.5vw;
   }
-
-  
 }
 
 @media only screen and (max-width: 600px) {
-  
-
   .logo {
     top: 20px;
     left: 20px;
