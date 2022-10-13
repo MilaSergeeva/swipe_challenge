@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import appStyles from "../App/App.module.css";
+import cardDeckStyle from "./cardsDeck.module.css";
 import { v4 as uuidv4 } from "uuid";
 import Card from "../Card/Card";
 
@@ -46,7 +46,7 @@ function CardDeck({ cards, setCurrentCardRef }) {
   );
 
   return (
-    <ul className={appStyles.cardsDeck}>
+    <ul className={cardDeckStyle.cardsDeck}>
       {cards.data.length > 0 ? cardsDeck : ""}
     </ul>
   );

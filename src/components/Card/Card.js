@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import appStyles from "../App/App.module.css";
+import cardStyles from "./card.module.css";
 import { useDrag } from "react-dnd";
 
 function Card({ index, card, cards, windowDimenion, setCurrentCardRef, id }) {
@@ -14,12 +14,13 @@ function Card({ index, card, cards, windowDimenion, setCurrentCardRef, id }) {
     },
   });
 
+  console.log(windowDimenion.winWidth);
   dragRef(currentCardRef);
 
   return (
     !isDrag && (
       <li
-        className={`${appStyles.card} `}
+        className={`${cardStyles.card} `}
         style={
           index === 0
             ? {
@@ -44,7 +45,6 @@ function Card({ index, card, cards, windowDimenion, setCurrentCardRef, id }) {
         Like <br />
         or <br />
         Dislike
-        {card.id}
       </li>
     )
   );

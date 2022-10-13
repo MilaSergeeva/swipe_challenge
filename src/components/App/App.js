@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { baseUrl, checkResponse } from "../../utils/api";
-import appStyles from "./App.module.css";
-import logo from "../../images/logo.png";
+import appStyles from "./app.module.css";
+
 import { Rings } from "react-loader-spinner";
-import { useDrop } from "react-dnd";
 import CardsDeck from "../CardsDeck/CardsDeck";
 import ArrowLeft from "../Controllers/ArrowLeft/ArrowLeft";
 import ArrowRight from "../Controllers/ArrowRight/ArrowRight";
 import DislikeBtn from "../Controllers/DislikeBtn/DislikeBtn";
 import LikeBtn from "../Controllers/LikeBtn/LikeBtn";
+import Logo from "../Logo/Logo";
 
 //get cards from API
 //show deck of cards
@@ -105,45 +105,15 @@ function App() {
       });
   }, []);
 
-  const [{ isOverOnLike }, dropOnLikeRef] = useDrop({
-    accept: "cards",
-    drop(item) {
-      handleCardChoice(item.id, "like");
-    },
-    collect: (monitor) => {
-      return {
-        isOverOnLike: monitor.isOver(),
-        canDrop: monitor.canDrop(),
-      };
-    },
-  });
-
-  const [{ isOverOnDislike }, dropOnDislikeRef] = useDrop({
-    accept: "cards",
-    drop(item) {
-      handleCardChoice(item.id, "dislike");
-    },
-    collect: (monitor) => {
-      return {
-        isOverOnDislike: monitor.isOver(),
-        canDrop: monitor.canDrop(),
-      };
-    },
-  });
-
   return (
     <div className={appStyles.mainSection}>
-      <a href="https://try.no/">
-        <img className={appStyles.logo} src={logo} alt="logo" />
-      </a>
-      <div
-        className={`${appStyles.btnConatainier} ${
-          appStyles.btnConatainierLeft
-        } ${isOverOnDislike && appStyles.btnConatainierLeftOnDrop}`}
-        ref={dropOnDislikeRef}
-      >
-        <DislikeBtn onClick={handleDislikeClick} active={active} />
-      </div>
+      <Logo />
+
+      <DislikeBtn
+        onClick={handleDislikeClick}
+        active={active}
+        handleCardChoice={handleCardChoice}
+      />
       <ArrowLeft onClick={handleCardsToLeft} active={active} />
       {cards.isLoading ? (
         <div className={appStyles.loaderCortainier}>
@@ -159,6 +129,7 @@ function App() {
           />{" "}
         </div>
       ) : (
+        // https://codyhouse.co/tutorials/how-stacking-cards that would be cool
         <CardsDeck
           cards={cards}
           setCurrentCardRef={(value) => {
@@ -168,15 +139,11 @@ function App() {
       )}
 
       <ArrowRight onClick={handleCardsToRight} active={active} />
-
-      <div
-        className={`${appStyles.btnConatainier}  ${
-          appStyles.btnConatainierRight
-        } ${isOverOnLike && appStyles.btnConatainierRightOnDrop}`}
-        ref={dropOnLikeRef}
-      >
-        <LikeBtn onClick={handleLikeClick} active={active} />
-      </div>
+      <LikeBtn
+        onClick={handleLikeClick}
+        active={active}
+        handleCardChoice={handleCardChoice}
+      />
     </div>
   );
 }

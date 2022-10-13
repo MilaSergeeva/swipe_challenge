@@ -1,7 +1,7 @@
 .mainSection {
   height: 100vh;
   width: 100vw;
-  max-width: 1440px;
+  /* max-width: 1440px; */
   margin-left: auto;
   margin-right: auto;
   position: relative;
@@ -11,11 +11,6 @@
   justify-content: center;
 }
 
-.logo {
-  position: absolute;
-  top: 63px;
-  left: 75px;
-}
 
 .loaderCortainier {
   height: 359px;
@@ -26,34 +21,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.cardsDeck{
-  height: 359px;
-  width: 245px;
-  position: relative;
-  display: block;
-  margin-left: 203px;
-  margin-right: 192px;
-}
-
-.card{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  height: 306.04px;
-  width: 182.64px;
-  border: solid #fff 4.94px;
-  border-radius: 29.62px;
-  background-color: #0336FF;
-  font-size: 36px;
-  color: #fff;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 1.2;
-  box-sizing: border-box;
 }
 
 .slideRight {
@@ -78,110 +45,23 @@
   }
 }
 
-.arrowL {
-  background: url(../../images/arrow-left.svg);
-  padding: 3px;
-  margin-left: 97px;
-}
-
-.arrowR {
-  background: url(../../images/arrow-right.svg);
-  margin-right: 96.5px;
-}
-
-.arrow {
-  width: 30px;
-  height: 20px;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.btnConatainier {
-  display: flex;
-  flex: 1 0 10vw;
-  align-items: center;
-  height: 100vh;
-}
-
-.btnConatainierLeft {
-  justify-content: end;
-}
-
-.btnConatainierRight {
-  justify-content: start;
-}
-
-.btnConatainierRightOnDrop {
-  background: rgb(238,238,238);
-  background: linear-gradient(94deg, rgba(238,238,238,0) 44%, rgba(11,169,202,1) 83%); 
-}
-
-.btnConatainierLeftOnDrop {
-  background: rgb(11,169,202);
-  background: linear-gradient(87deg, rgba(11,169,202,1) 16%, rgba(238,238,238,0) 56%);
-}
-
-.choiceBtn {
-  width: 24px;
-  height: 24px;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.dislikeBtn {
-  background: url(../../images/thumb-down.png);
-}
-
-.likeBtn {
-  background: url(../../images/thumb-up.png);
-}
-
-.arrowR:hover, .arrowL:hover, .dislikeBtn:hover, .likeBtn:hover {
-  transform: scale(1.2);
-  transition: all 0.3s linear 0s;
-}
-
 .disabled {
   opacity: 0.2;
 }
 
 @media only screen and (max-width: 1420px) {
-  .cardsDeck, .loaderCortainier{
+  .loaderCortainier{
   margin-left: 14.1vw;
   margin-right: 13.3vw;
   }
 
-  .arrowL{
-    margin-left: 6.2vw;
-  }
-  .arrowR{
-    margin-right: 6.5vw;
-  }
-
-  .BtnConatainierLeft,.BtnConatainierRight{
-    width: 7.5vw;
-  }
 }
 
 @media only screen and (max-width: 600px) {
-  .logo {
-    top: 20px;
-    left: 20px;
-  }
-
-  .cardsDeck, .loaderCortainier{
+  .loaderCortainier{
     margin-left: 2.3vw;
     margin-right: 2.5vw;
     height: 246.23px;
     width: 161.36px;
-  }
-
-  .card{
-    height: 210.47px;
-    width: 125.6px;
-    border: solid #fff 3.39px;
-    border-radius: 20.37px;
-    font-size: 24.7574px;
-    line-height: 1.17;
   }
 }

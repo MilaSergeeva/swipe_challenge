@@ -1,0 +1,18 @@
+.arrow {
+  width: 30px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.choiceBtn {
+  display: flex;
+  flex: 1 0 10vw;
+  align-items: center;
+  height: 100vh;
+  
+}
+
+.disabled {
+  opacity: 0.2;
+}

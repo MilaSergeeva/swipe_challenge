@@ -1,0 +1,24 @@
+.cardsDeck{
+  height: 359px;
+  width: 245px;
+  position: relative;
+  display: block;
+  margin-left: 203px;
+  margin-right: 192px;
+}
+
+@media only screen and (max-width: 1420px) {
+  .cardsDeck{
+  margin-left: 14.1vw;
+  margin-right: 13.3vw;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .cardsDeck{
+    margin-left: 2.3vw;
+    margin-right: 2vw;
+    height: 246.23px;
+    width: 161.36px;
+  }
+}

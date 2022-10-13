@@ -1,0 +1,14 @@
+.likeBtn {
+  background-image: url(../../../images/thumb-up.svg);
+  background-position: center left;
+  background-repeat: no-repeat;
+}
+
+.likeBtn:hover{
+  background-image: url(../../../images/thumb-up_hover.svg);
+}
+
+.btnConatainierRightOnDrop {
+  background: rgb(0, 0, 0);
+  background: linear-gradient(90deg, rgba(238,238,238,0) 44%, rgba(11,169,202,1) 84%); 
+}

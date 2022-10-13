@@ -1,0 +1,15 @@
+.arrowL {
+  background-image: url(../../../images/arrow-left.svg);
+  margin-left: 97px;
+  background-repeat: no-repeat;
+}
+.arrowL:hover {
+  background-image: url(../../../images/arrow-left_hover.svg);
+}
+@media only screen and (max-width: 1420px) {
+  
+  .arrowL{
+    margin-left: 6.2vw;
+  }
+ 
+}

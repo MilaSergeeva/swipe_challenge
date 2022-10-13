@@ -1,0 +1,14 @@
+.dislikeBtn {
+  background-image: url(../../../images/thumb-down.svg);
+  background-position: center right;
+  background-repeat: no-repeat;
+}
+
+.dislikeBtn:hover{
+  background-image: url(../../../images/thumb-down_hover.svg);
+}
+
+.btnConatainierLeftOnDrop {
+  background: rgb(0, 0, 0);
+  background: linear-gradient(90deg, rgba(11,169,202,1) 16%, rgba(238,238,238,0) 56%);
+}

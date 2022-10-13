@@ -1,12 +1,13 @@
 import React from "react";
-import appStyles from "../../App/App.module.css";
+import arrowLeftStyle from "./arrowLeft.module.css";
+import arrowStyle from "../controllers.module.css";
 
 function ArrowLeft({ onClick, active }) {
   return (
     <>
       <button
-        className={`${appStyles.arrow} ${appStyles.arrowL} ${
-          !active ? appStyles.disabled : ""
+        className={`${arrowStyle.arrow} ${arrowLeftStyle.arrowL} ${
+          !active ? arrowStyle.disabled : ""
         }`}
         onClick={onClick}
         disabled={!active}
