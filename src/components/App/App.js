@@ -27,15 +27,12 @@ function App() {
   const [dislikedCards, setDislikedCards] = useState([]);
   const [active, setActive] = useState(false);
   const [currentCard, setCurrentCard] = useState({});
-
-  const getCurrentCard = (value) => {
-    console.log(value);
-    setCurrentCard({ value });
-  };
+  const [currentCardRef, setCurrentCardRef] = useState({});
 
   const handleCardsToRight = () => {
     let lastCard = cards.data[cards.data.length - 1];
     const newOrderOfCards = cards.data.slice(0, -1);
+
     newOrderOfCards.unshift(lastCard);
     setCards({ ...cards, data: newOrderOfCards });
   };
@@ -43,44 +40,59 @@ function App() {
   const handleCardsToLeft = () => {
     let array = cards.data;
     let firstCard = array.shift();
+
     array.push(firstCard);
     setCards({ ...cards, data: array });
   };
 
-  const handleLike = () => {
-    currentCard.value.current.classList.add(appStyles.slideRight);
-    let array = cards.data;
+  const handleCardChoice = (cardId, choice) => {
+    let chosenCard = cards.data.find((item) => item.id === cardId);
 
-    setTimeout(() => {
-      let firstCard = array.shift();
+    if (choice === "like") {
       likedCards.length > 1
-        ? setLikedCards([...likedCards, firstCard])
-        : setLikedCards([firstCard]);
-      setCards({ ...cards, data: array });
-    }, 400);
-  };
-
-  const handleDislike = () => {
-    currentCard.value.current.classList.add(appStyles.slideLeft);
-    let array = cards.data;
-    setTimeout(() => {
-      let firstCard = array.shift();
+        ? setLikedCards([...likedCards, chosenCard])
+        : setLikedCards([chosenCard]);
+    } else {
       dislikedCards.length > 1
-        ? setDislikedCards([...dislikedCards, firstCard])
-        : setDislikedCards([firstCard]);
-      setCards({ ...cards, data: array });
+        ? setDislikedCards([...dislikedCards, chosenCard])
+        : setDislikedCards([chosenCard]);
+    }
+
+    setCards({
+      ...cards,
+      data: cards.data.filter((item) => item.id !== cardId),
+    });
+  };
+
+  const handleLikeClick = () => {
+    currentCardRef.value.current.classList.add(appStyles.slideRight);
+
+    setTimeout(() => {
+      handleCardChoice(currentCard.id, "like");
     }, 400);
   };
 
-  useEffect(
-    () => (cards.data.length > 0 ? setActive(true) : setActive(false)),
-    [cards]
-  );
+  const handleDislikeClick = () => {
+    currentCardRef.value.current.classList.add(appStyles.slideLeft);
+
+    setTimeout(() => {
+      handleCardChoice(currentCard.id, "dislike");
+    }, 400);
+  };
+
+  useEffect(() => {
+    if (cards.data.length > 0) {
+      setActive(true);
+      setCurrentCard(cards.data[0]);
+    } else {
+      setActive(false);
+    }
+  }, [cards]);
 
   useEffect(() => {
     fetch(baseUrl)
-      .then(checkResponse)
       .then(setCards({ ...cards, isLoading: true }))
+      .then(checkResponse)
       .then((res) => {
         if (res) {
           setCards({ ...cards, isLoading: false, data: res });
@@ -93,24 +105,10 @@ function App() {
       });
   }, []);
 
-  const handleDropOnLike = (item) => {
-    // find card by id from item
-    // modify cards array by found item
-
-    let array = cards.data;
-    let firstCard = array.shift();
-
-    likedCards.length > 1
-      ? setLikedCards([...likedCards, firstCard])
-      : setLikedCards([firstCard]);
-
-    setCards({ ...cards, data: array });
-  };
-
   const [{ isOverOnLike }, dropOnLikeRef] = useDrop({
     accept: "cards",
     drop(item) {
-      handleDropOnLike(item);
+      handleCardChoice(item.id, "like");
     },
     collect: (monitor) => {
       return {
@@ -120,22 +118,10 @@ function App() {
     },
   });
 
-  const handleDropOnDislike = (item) => {
-    // find card by id from item
-    // modify cards array by found item
-
-    let array = cards.data;
-    let firstCard = array.shift();
-    dislikedCards.length > 1
-      ? setDislikedCards([...dislikedCards, firstCard])
-      : setDislikedCards([firstCard]);
-    setCards({ ...cards, data: array });
-  };
-
   const [{ isOverOnDislike }, dropOnDislikeRef] = useDrop({
     accept: "cards",
     drop(item) {
-      handleDropOnDislike(item);
+      handleCardChoice(item.id, "dislike");
     },
     collect: (monitor) => {
       return {
@@ -146,7 +132,7 @@ function App() {
   });
 
   return (
-    <div className={appStyles.mainBlock}>
+    <div className={appStyles.mainSecttion}>
       <a href="https://try.no/">
         <img className={appStyles.logo} src={logo} alt="logo" />
       </a>
@@ -156,7 +142,7 @@ function App() {
         }`}
         ref={dropOnDislikeRef}
       >
-        <DislikeBtn onClick={handleDislike} active={active} />
+        <DislikeBtn onClick={handleDislikeClick} active={active} />
       </div>
       <ArrowLeft onClick={handleCardsToLeft} active={active} />
       {cards.isLoading ? (
@@ -173,7 +159,12 @@ function App() {
           />{" "}
         </div>
       ) : (
-        <CardsDeck cards={cards} getCurrentCard={getCurrentCard} />
+        <CardsDeck
+          cards={cards}
+          setCurrentCardRef={(value) => {
+            setCurrentCardRef({ value });
+          }}
+        />
       )}
 
       <ArrowRight onClick={handleCardsToRight} active={active} />
@@ -184,7 +175,7 @@ function App() {
         }`}
         ref={dropOnLikeRef}
       >
-        <LikeBtn onClick={handleLike} active={active} />
+        <LikeBtn onClick={handleLikeClick} active={active} />
       </div>
     </div>
   );

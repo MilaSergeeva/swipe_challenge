@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import appStyles from "../App/App.module.css";
 import { v4 as uuidv4 } from "uuid";
-import { useDrag, useDrop } from "react-dnd";
 import Card from "../Card/Card";
 
-function CardDeck({ cards, getCurrentCard }) {
+function CardDeck({ cards, setCurrentCardRef }) {
   const [windowDimenion, detectWindowDimenion] = useState({
     winWidth: window.innerWidth,
     winHeight: window.innerHeight,
@@ -38,7 +37,7 @@ function CardDeck({ cards, getCurrentCard }) {
               index={index}
               cards={cards}
               windowDimenion={windowDimenion}
-              getCurrentCard={getCurrentCard}
+              setCurrentCardRef={setCurrentCardRef}
               id={card.id}
             />
           );

@@ -2,24 +2,19 @@ import React, { useEffect, useRef } from "react";
 import appStyles from "../App/App.module.css";
 import { useDrag } from "react-dnd";
 
-function Card({ index, card, cards, windowDimenion, getCurrentCard, id }) {
-  const currentCard = useRef();
-  // console.log("is current", id, index === cards.data.length - 1, currentCard);
+function Card({ index, card, cards, windowDimenion, setCurrentCardRef, id }) {
+  const currentCardRef = useRef();
 
-  useEffect(() => getCurrentCard(currentCard), []);
+  useEffect(() => setCurrentCardRef(currentCardRef), []);
 
   const [{ isDrag }, dragRef] = useDrag({
     type: "cards",
     item: () => {
       return { id, index, card };
     },
-
-    // collect: (monitor) => ({
-    //   isDrag: monitor.isDragging(),
-    // }),
   });
 
-  dragRef(currentCard);
+  dragRef(currentCardRef);
 
   return (
     !isDrag && (
@@ -44,8 +39,7 @@ function Card({ index, card, cards, windowDimenion, getCurrentCard, id }) {
                 backgroundImage: `url(${card.image})`,
               }
         }
-        ref={index === cards.data.length - 1 ? currentCard : null}
-        // ref={index === cards.data.length - 1 ? dragRef : null}
+        ref={index === cards.data.length - 1 ? currentCardRef : null}
       >
         Like <br />
         or <br />
