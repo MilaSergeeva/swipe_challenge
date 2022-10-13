@@ -1,0 +1,98 @@
+.mainBlock{
+  height: 100vh;
+  width: 100vw;
+  background-color: #0336FF;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  position: absolute;
+  top: 63px;
+  left: 75px;
+}
+
+.cardsDeck{
+  height: 359px;
+  width: 245px;
+  position: relative;
+  display: block;
+  margin-left: 203px;
+  margin-right: 192px;
+}
+
+.card{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  height: 306.04px;
+  width: 182.64px;
+  border: solid #fff 4.94px;
+  border-radius: 29.62px;
+  background-color: #0336FF;
+  font-size: 36px;
+  color: #fff;
+  font-style: normal;
+font-weight: 400;
+line-height: 1.2;
+box-sizing: border-box;
+
+}
+
+.arrowL{
+  background: url(../../images/arrow-left.svg);
+  padding: 3px;
+  width: 30px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left: 97px;
+}
+
+.arrowR{
+  background: url(../../images/arrow-right.svg);
+  width: 30px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 96.5px;
+}
+
+
+
+
+.dislikeBtn{
+  background: url(../../images/thumb-down.png);
+  width: 24px;
+  height: 24px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.likeBtn{
+  background: url(../../images/thumb-up.png);
+  width: 24px;
+  height: 24px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.arrowR:hover, .arrowL:hover, .dislikeBtn:hover, .likeBtn:hover {
+  transform: scale(1.2);
+  opacity: 0.9;
+  transition: all 0.3s linear 0s;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
