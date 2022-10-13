@@ -19,7 +19,6 @@ function CardDeck({ cards, getCurrentCard }) {
 
   useEffect(() => {
     window.addEventListener("resize", detectSize);
-    console.log(windowDimenion);
 
     return () => {
       window.removeEventListener("resize", detectSize);

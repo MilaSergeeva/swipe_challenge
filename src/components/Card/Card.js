@@ -1,30 +1,22 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import appStyles from "../App/App.module.css";
-import { v4 as uuidv4 } from "uuid";
-import { useDrag, useDrop } from "react-dnd";
+import { useDrag } from "react-dnd";
 
 function Card({ index, card, cards, windowDimenion, getCurrentCard, id }) {
   const currentCard = useRef();
+  // console.log("is current", id, index === cards.data.length - 1, currentCard);
 
   useEffect(() => getCurrentCard(currentCard), []);
-
-  // const [, dragRef] = useDrag({
-  //   type: "cards",
-  //   item: card,
-  //   collect: (monitor) => ({
-  //     isDrag: monitor.isDragging(),
-  //   }),
-  // });
 
   const [{ isDrag }, dragRef] = useDrag({
     type: "cards",
     item: () => {
-      return { id, index };
+      return { id, index, card };
     },
 
-    collect: (monitor) => ({
-      isDrag: monitor.isDragging(),
-    }),
+    // collect: (monitor) => ({
+    //   isDrag: monitor.isDragging(),
+    // }),
   });
 
   dragRef(currentCard);

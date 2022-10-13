@@ -100,19 +100,27 @@ box-sizing: border-box;
 .btnConatainierLeft{
   
   display: flex;
-    width: 15vw;
+    width: 10vw;
     justify-content: end;
     align-items: center;
-    background-color: red;
     height: 100vh;
 }
 .btnConatainierRight{
   display: flex;
-    width: 15vw;
+    width: 10vw;
     justify-content: start;
     align-items: center;
-    background-color: red;
     height: 100vh;
+}
+
+.btnConatainierRightOnDrop{
+  background: rgb(238,238,238);
+  background: linear-gradient(94deg, rgba(238,238,238,0) 44%, rgba(11,169,202,1) 83%); 
+}
+
+.btnConatainierLeftOnDrop{
+  background: rgb(11,169,202);
+  background: linear-gradient(87deg, rgba(11,169,202,1) 16%, rgba(238,238,238,0) 56%);
 }
 
 .dislikeBtn{
@@ -141,10 +149,10 @@ box-sizing: border-box;
 }
 
 
-@media only screen and (max-width: 1440px) {
+@media only screen and (max-width: 1420px) {
   .cardsDeck, .loaderCortainier{
-  margin-left: 2.3vw;
-  margin-right: 2.5vw;
+  margin-left: 14.1vw;
+  margin-right: 13.3vw;
   }
 
   .arrowL{
@@ -162,12 +170,16 @@ box-sizing: border-box;
 }
 
 @media only screen and (max-width: 600px) {
+  
+
   .logo {
     top: 20px;
     left: 20px;
   }
 
   .cardsDeck, .loaderCortainier{
+    margin-left: 2.3vw;
+    margin-right: 2.5vw;
     height: 246.23px;
     width: 161.36px;
   }

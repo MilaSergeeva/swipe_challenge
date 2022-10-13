@@ -2,11 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { baseUrl, checkResponse } from "../../utils/api";
 import appStyles from "./App.module.css";
 import logo from "../../images/logo.png";
-import { v4 as uuidv4 } from "uuid";
 import { Rings } from "react-loader-spinner";
-import { useDrag, useDrop } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { DndProvider } from "react-dnd";
+import { useDrop } from "react-dnd";
 import CardsDeck from "../CardsDeck/CardsDeck";
 import ArrowLeft from "../Controllers/ArrowLeft/ArrowLeft";
 import ArrowRight from "../Controllers/ArrowRight/ArrowRight";
@@ -32,6 +29,7 @@ function App() {
   const [currentCard, setCurrentCard] = useState({});
 
   const getCurrentCard = (value) => {
+    console.log(value);
     setCurrentCard({ value });
   };
 
@@ -61,6 +59,7 @@ function App() {
       setCards({ ...cards, data: array });
     }, 400);
   };
+
   const handleDislike = () => {
     currentCard.value.current.classList.add(appStyles.slideLeft);
     let array = cards.data;
@@ -94,51 +93,69 @@ function App() {
       });
   }, []);
 
-  const handleDrop = () => {
+  const handleDropOnLike = (item) => {
+    // find card by id from item
+    // modify cards array by found item
+
     let array = cards.data;
     let firstCard = array.shift();
+
     likedCards.length > 1
       ? setLikedCards([...likedCards, firstCard])
       : setLikedCards([firstCard]);
+
     setCards({ ...cards, data: array });
   };
 
-  const [, dropOnLikeRef] = useDrop({
+  const [{ isOverOnLike }, dropOnLikeRef] = useDrop({
     accept: "cards",
-    drop() {
-      handleDrop();
+    drop(item) {
+      handleDropOnLike(item);
     },
     collect: (monitor) => {
       return {
-        isOver: monitor.isOver(),
+        isOverOnLike: monitor.isOver(),
         canDrop: monitor.canDrop(),
       };
     },
   });
-  // const [, dropOnLikeRef] = useDrop({
-  //   accept: "cards",
-  //   drop() {
-  //     let array = cards.data;
-  //     let firstCard = array.shift();
-  //     likedCards.length > 1
-  //       ? setLikedCards([...likedCards, firstCard])
-  //       : setLikedCards([firstCard]);
-  //     setCards({ ...cards, data: array });
-  //   },
-  //   // collect: (monitor) => {
-  //   //   return {
-  //   //     isOver: monitor.isOver(),
-  //   //     canDrop: monitor.canDrop(),
-  //   //   };
-  //   // },
-  // });
+
+  const handleDropOnDislike = (item) => {
+    // find card by id from item
+    // modify cards array by found item
+
+    let array = cards.data;
+    let firstCard = array.shift();
+    dislikedCards.length > 1
+      ? setDislikedCards([...dislikedCards, firstCard])
+      : setDislikedCards([firstCard]);
+    setCards({ ...cards, data: array });
+  };
+
+  const [{ isOverOnDislike }, dropOnDislikeRef] = useDrop({
+    accept: "cards",
+    drop(item) {
+      handleDropOnDislike(item);
+    },
+    collect: (monitor) => {
+      return {
+        isOverOnDislike: monitor.isOver(),
+        canDrop: monitor.canDrop(),
+      };
+    },
+  });
 
   return (
     <div className={appStyles.mainBlock}>
       <a href="https://try.no/">
         <img className={appStyles.logo} src={logo} alt="logo" />
       </a>
-      <div className={appStyles.btnConatainierLeft}>
+      <div
+        className={`${appStyles.btnConatainierLeft} ${
+          isOverOnDislike && appStyles.btnConatainierLeftOnDrop
+        }`}
+        ref={dropOnDislikeRef}
+      >
         <DislikeBtn onClick={handleDislike} active={active} />
       </div>
       <ArrowLeft onClick={handleCardsToLeft} active={active} />
@@ -160,7 +177,13 @@ function App() {
       )}
 
       <ArrowRight onClick={handleCardsToRight} active={active} />
-      <div className={appStyles.btnConatainierRight} ref={dropOnLikeRef} style={{ !isOver ? (backgroundColor:000) : ''}}>
+
+      <div
+        className={`${appStyles.btnConatainierRight} ${
+          isOverOnLike && appStyles.btnConatainierRightOnDrop
+        }`}
+        ref={dropOnLikeRef}
+      >
         <LikeBtn onClick={handleLike} active={active} />
       </div>
     </div>
