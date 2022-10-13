@@ -7,6 +7,11 @@ import { Rings } from "react-loader-spinner";
 import { useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
+import CardsDeck from "../CardsDeck/CardsDeck";
+import ArrowLeft from "../Controllers/ArrowLeft/ArrowLeft";
+import ArrowRight from "../Controllers/ArrowRight/ArrowRight";
+import DislikeBtn from "../Controllers/DislikeBtn/DislikeBtn";
+import LikeBtn from "../Controllers/LikeBtn/LikeBtn";
 
 //get cards from API
 //show deck of cards
@@ -21,31 +26,14 @@ function App() {
     data: [],
   });
 
-  const currentCard = useRef({});
-
   const [likedCards, setLikedCards] = useState([]);
   const [dislikedCards, setDislikedCards] = useState([]);
   const [active, setActive] = useState(false);
-  const [windowDimenion, detectWindowDimenion] = useState({
-    winWidth: window.innerWidth,
-    winHeight: window.innerHeight,
-  });
+  const [currentCard, setCurrentCard] = useState({});
 
-  const detectSize = () => {
-    detectWindowDimenion({
-      winWidth: window.innerWidth,
-      winHeight: window.innerHeight,
-    });
+  const getCurrentCard = (value) => {
+    setCurrentCard({ value });
   };
-
-  useEffect(() => {
-    window.addEventListener("resize", detectSize);
-    console.log(windowDimenion);
-
-    return () => {
-      window.removeEventListener("resize", detectSize);
-    };
-  }, [windowDimenion]);
 
   const handleCardsToRight = () => {
     let lastCard = cards.data[cards.data.length - 1];
@@ -62,7 +50,7 @@ function App() {
   };
 
   const handleLike = () => {
-    currentCard.current.classList.add(appStyles.slideRight);
+    currentCard.value.current.classList.add(appStyles.slideRight);
     let array = cards.data;
 
     setTimeout(() => {
@@ -73,9 +61,8 @@ function App() {
       setCards({ ...cards, data: array });
     }, 400);
   };
-
   const handleDislike = () => {
-    currentCard.current.classList.add(appStyles.slideLeft);
+    currentCard.value.current.classList.add(appStyles.slideLeft);
     let array = cards.data;
     setTimeout(() => {
       let firstCard = array.shift();
@@ -107,52 +94,54 @@ function App() {
       });
   }, []);
 
-  const [, dragRef] = useDrag({
-    type: "cards",
-    item: currentCard.current.id,
-    collect: (monitor) => ({
-      isDrag: monitor.isDragging(),
-    }),
-  });
+  const handleDrop = () => {
+    let array = cards.data;
+    let firstCard = array.shift();
+    likedCards.length > 1
+      ? setLikedCards([...likedCards, firstCard])
+      : setLikedCards([firstCard]);
+    setCards({ ...cards, data: array });
+  };
 
   const [, dropOnLikeRef] = useDrop({
     accept: "cards",
     drop() {
-      let array = cards.data;
-      let firstCard = array.shift();
-      likedCards.length > 1
-        ? setLikedCards([...likedCards, firstCard])
-        : setLikedCards([firstCard]);
-      setCards({ ...cards, data: array });
+      handleDrop();
     },
-    // collect: (monitor) => {
-    //   return {
-    //     isOver: monitor.isOver(),
-    //     canDrop: monitor.canDrop(),
-    //   };
-    // },
+    collect: (monitor) => {
+      return {
+        isOver: monitor.isOver(),
+        canDrop: monitor.canDrop(),
+      };
+    },
   });
+  // const [, dropOnLikeRef] = useDrop({
+  //   accept: "cards",
+  //   drop() {
+  //     let array = cards.data;
+  //     let firstCard = array.shift();
+  //     likedCards.length > 1
+  //       ? setLikedCards([...likedCards, firstCard])
+  //       : setLikedCards([firstCard]);
+  //     setCards({ ...cards, data: array });
+  //   },
+  //   // collect: (monitor) => {
+  //   //   return {
+  //   //     isOver: monitor.isOver(),
+  //   //     canDrop: monitor.canDrop(),
+  //   //   };
+  //   // },
+  // });
 
   return (
     <div className={appStyles.mainBlock}>
       <a href="https://try.no/">
         <img className={appStyles.logo} src={logo} alt="logo" />
       </a>
-      <div className={appStyles.BtnConatainierLeft}>
-        <button
-          className={`${appStyles.dislikeBtn} ${
-            !active ? appStyles.disabled : ""
-          }`}
-          style={{ bottom: 0 }}
-          onClick={handleDislike}
-          disabled={!active}
-        />
+      <div className={appStyles.btnConatainierLeft}>
+        <DislikeBtn onClick={handleDislike} active={active} />
       </div>
-      <button
-        className={`${appStyles.arrowL} ${!active ? appStyles.disabled : ""}`}
-        onClick={handleCardsToLeft}
-        disabled={!active}
-      />
+      <ArrowLeft onClick={handleCardsToLeft} active={active} />
       {cards.isLoading ? (
         <div className={appStyles.loaderCortainier}>
           <Rings
@@ -167,62 +156,12 @@ function App() {
           />{" "}
         </div>
       ) : (
-        <ul className={appStyles.cardsDeck}>
-          {cards.data.length > 0
-            ? cards.data
-                .slice(0, 5)
-                .reverse()
-                .map((el, index) => {
-                  return (
-                    <li
-                      className={`${appStyles.card} `}
-                      style={
-                        index === 0
-                          ? {
-                              top: 0,
-                              left: 0,
-                              backgroundImage: `url(${el.image})`,
-                            }
-                          : windowDimenion.winWidth < 600
-                          ? {
-                              top: 8.94 * index,
-                              left: 8.94 * index,
-                              backgroundImage: `url(${el.image})`,
-                            }
-                          : {
-                              top: 13 * index,
-                              left: 13 * index,
-                              backgroundImage: `url(${el.image})`,
-                            }
-                      }
-                      // ref={index === cards.data.length - 1 ? currentCard : null}
-                      ref={index === cards.data.length - 1 ? dragRef : null}
-                      key={uuidv4()}
-                    >
-                      Like <br />
-                      or <br />
-                      Dislike
-                      {el.id}
-                    </li>
-                  );
-                })
-            : ""}
-        </ul>
+        <CardsDeck cards={cards} getCurrentCard={getCurrentCard} />
       )}
 
-      <button
-        className={`${appStyles.arrowR} ${!active ? appStyles.disabled : ""}`}
-        onClick={handleCardsToRight}
-        disabled={!active}
-      />
-      <div className={appStyles.BtnConatainierRight} ref={dropOnLikeRef}>
-        <button
-          className={`${appStyles.likeBtn} ${
-            !active ? appStyles.disabled : ""
-          }`}
-          onClick={handleLike}
-          disabled={!active}
-        />
+      <ArrowRight onClick={handleCardsToRight} active={active} />
+      <div className={appStyles.btnConatainierRight} ref={dropOnLikeRef} style={{ !isOver ? (backgroundColor:000) : ''}}>
+        <LikeBtn onClick={handleLike} active={active} />
       </div>
     </div>
   );

@@ -97,16 +97,22 @@ box-sizing: border-box;
 }
 
 
-.BtnConatainierLeft{
+.btnConatainierLeft{
   
   display: flex;
-    width: 10vw;
+    width: 15vw;
     justify-content: end;
+    align-items: center;
+    background-color: red;
+    height: 100vh;
 }
-.BtnConatainierRight{
+.btnConatainierRight{
   display: flex;
-    width: 10vw;
+    width: 15vw;
     justify-content: start;
+    align-items: center;
+    background-color: red;
+    height: 100vh;
 }
 
 .dislikeBtn{
